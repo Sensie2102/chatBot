@@ -1,0 +1,7 @@
+Content Affinity
+Welcome to the Content Affinity section, where we will explore Lytics' Content Affinity Engine and its machine-learning capabilities. We will cover configuring and using the engine to analyze your website's content, extract topics, and calculate user-level affinities. This section will provide you with the essential knowledge needed to leverage the power of the Lytics Content Affinity Engine and create a more personalized and engaging web experience for your users.
+Updated
+almost 2 years ago
+Did this page help you?
+Yes
+No

@@ -1,0 +1,100 @@
+3. Surface Personalized Message
+The Lytics Personalization Engine profiles real-time access to a comprehensive visitor profile. Before we jump into the weeds of how you can fully build and leverage this profile, let's create our first experience.
+Surface a Simple Message
+Lytics comes with our Personalization SDK called Pathfora. Pathfora allows you to easily surface simple lead capture and messaging modals or content directly inline. Full
+for Pathfora is available, but initially, let's surface a welcome message to our
+anonymous visitor
+audience.
+javascript
+// jstag profiles a helper function to ensure that the Pathfora library
+// has been loaded before triggering the experience.
+jstag
+.
+on
+(
+'pathfora.publish.done'
+,
+function
+(
+topic
+,
+event
+){
+// here we initialize a new Pathfora "Message" experience
+var
+module
+=
+new
+pathfora
+.
+Message
+({
+id
+:
+'sample-message-campaign'
+,
+// this value will be collected along side all interactions and used in reporting
+layout
+:
+'slideout'
+,
+// for layout we'll use a small slide out
+position
+:
+'bottom-left'
+,
+// the model will enter and sit at the bottom left
+theme
+:
+'dark'
+,
+// css can be customized to brand but we'll use the default dark theme
+headline
+:
+'Hello world!'
+,
+// this will be the headline of our message
+msg
+:
+'Congratulations on setting up your first targetted campaign using the Lytics Personalization Engine!'
+,
+// the body of the message
+});
+var
+modules
+=
+{
+target
+: [{
+segment
+:
+"anonymous_profiles"
+,
+// target only visitors with the anonymous_profile attribute
+widgets
+: [
+module
+]
+}]
+};
+pathfora
+.
+initializeWidgets
+(
+modules
+);
+// initialize the campaign
+});
+Alter the Pathfora configuration to your liking.
+Install the Pathfora configuration onto your site via your preferred tag management method.
+Refresh the page and be greeted with your new welcome message targeted at anonymous visitors!
+Lytics and Pathfora provide a great deal of flexibility. If you are ready to dive deeper, please explore some of our other popular use cases:
+Surface a Promotional Message to High Momentum Visitors (coming soon)
+Surface Content Recommendations Based on Interests (coming soon)
+Sync Profiles & Audiences to GA4 or Meta (coming soon)
+Personalize Your Site Based on Behaviors and Stored Attributes (coming soon)
+Updated
+6 months ago
+Did this page help you?
+Yes
+No

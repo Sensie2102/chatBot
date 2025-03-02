@@ -6,23 +6,39 @@ from bs4 import BeautifulSoup
 
 
 urls = [
-    "https://docs.zeotap.com/articles/integrate-customer/sources",
-    "https://docs.zeotap.com/articles/integrate-customer/components-of-the-source-listing-page",
-    "https://docs.zeotap.com/articles/integrate-customer/knowing-the-fields-on-the-preview-data-tab",
-    "https://docs.zeotap.com/articles/integrate-customer/onboard-raw-pii-data-into-zeotap",
-    "https://docs.zeotap.com/articles/integrate-customer/source-alerts",
-    "https://docs.zeotap.com/articles/integrate-customer/understanding-cookies",
-    "https://docs.zeotap.com/articles/integrate-customer/pgp-encryption-in-sources",
-    "https://docs.zeotap.com/articles/integrate-customer/destinations",
-    "https://docs.zeotap.com/articles/integrate-customer/create-a-destination",
-    "https://docs.zeotap.com/articles/integrate-customer/link-an-audience-to-the-destination",
-    "https://docs.zeotap.com/articles/integrate-customer/pgp-encryption-in-destinations",
-    "https://docs.zeotap.com/articles/integrate-customer/activate-your-real-time-audiences",
-    
+    # "https://docs.zeotap.com/articles/integrate-customer/sources",
+    # "https://docs.zeotap.com/articles/integrate-customer/components-of-the-source-listing-page",
+    # "https://docs.zeotap.com/articles/integrate-customer/knowing-the-fields-on-the-preview-data-tab",
+    # "https://docs.zeotap.com/articles/integrate-customer/onboard-raw-pii-data-into-zeotap",
+    # "https://docs.zeotap.com/articles/integrate-customer/source-alerts",
+    # "https://docs.zeotap.com/articles/integrate-customer/understanding-cookies",
+    # "https://docs.zeotap.com/articles/integrate-customer/pgp-encryption-in-sources",
+    # "https://docs.zeotap.com/articles/integrate-customer/destinations",
+    # "https://docs.zeotap.com/articles/integrate-customer/create-a-destination",
+    # "https://docs.zeotap.com/articles/integrate-customer/link-an-audience-to-the-destination",
+    # "https://docs.zeotap.com/articles/integrate-customer/pgp-encryption-in-destinations",
+    # "https://docs.zeotap.com/articles/integrate-customer/activate-your-real-time-audiences",
+    "https://docs.lytics.com/docs/developer-quickstart-3-install-lytics",
+    "https://docs.lytics.com/docs/developer-quickstart-2-content-setup",
+    "https://docs.lytics.com/docs/developer-quickstart-4-personalized-message",
+    "https://docs.lytics.com/docs/data",
+    "https://docs.lytics.com/docs/lead-capture",
+    "https://docs.lytics.com/docs/identity-resolution",
+    "https://docs.lytics.com/docs/consent",
+    "https://docs.lytics.com/docs/client-server-side-cookie-deep-dive",
+    "https://docs.lytics.com/docs/content-affinity",
+    "https://docs.lytics.com/docs/content-curation",
+    "https://docs.lytics.com/docs/topic-taxonomy",
+    "https://docs.lytics.com/docs/architecture",
+    "https://docs.lytics.com/docs/integrated-marketing-tools",
+    "https://docs.lytics.com/docs/background-processing",
+    "https://docs.lytics.com/docs/what-is-vault",
+    "https://docs.lytics.com/docs/cloud-connect-intro",
+    "https://docs.lytics.com/docs/lytics-integration-options"
 ]
 
 
-output_dir = "scraped_texts_zeotap"
+output_dir = "scraped_texts_lytic"
 os.makedirs(output_dir, exist_ok=True)
 
 

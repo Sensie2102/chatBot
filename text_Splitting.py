@@ -9,9 +9,9 @@ def load_and_split_documents(directory: str, splitter: RecursiveCharacterTextSpl
     """Load all .txt files from a directory and split them into chunks."""
     chunks_list = []
     for dir in directory:
-        for filename in os.listdir(directory):
+        for filename in os.listdir(dir):
             if filename.endswith(".txt"):
-                file_path = os.path.join(directory, filename)
+                file_path = os.path.join(dir, filename)
                 with open(file_path, 'r', encoding='utf-8') as file:
                     text = file.read()
                     chunks = splitter.split_text(text)
@@ -26,11 +26,11 @@ def add_embeddings():
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=100)
     
     
-    directory = ["scraped_texts_mparticle","scraped_texts_segment"]
+    directory = ["scraped_texts_mparticle","scraped_texts_segment","scraped_texts_lytic"]
     
     
     all_chunks = load_and_split_documents(directory, text_splitter)
-    print(f"Total chunks created: {len(all_chunks)}")
+    # print(f"Total chunks created: {len(all_chunks)}")
     
     
     documents = [Document(page_content=chunk) for chunk in all_chunks]

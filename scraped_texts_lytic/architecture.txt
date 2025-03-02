@@ -1,0 +1,7 @@
+Architecture
+Welcome to the Architecture section, where we will explore the technical details of the Lytics platform and examine how it can be integrated with other systems. We will discuss the core components of the platform, the different integration patterns, and best practices for system architecture and integration. Whether you are a developer, architect, or data analyst, this section will provide you with the essential knowledge needed to understand the Lytics platform's architecture and integration capabilities.
+Updated
+almost 2 years ago
+Did this page help you?
+Yes
+No

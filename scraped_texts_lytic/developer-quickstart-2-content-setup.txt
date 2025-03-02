@@ -1,0 +1,25 @@
+2. Content Setup
+Lytics' Interest Engines effectively analyze your content with minimal effort required. However, to guarantee that the classification results align with your expectations, conducting a quick test is advisable, as poor metadata can sometimes lead to less-than-optimal outcomes. The most reliable method to ensure comprehensive and satisfactory content classification is to classify a selection of your URLs manually.
+Use the left-hand navigation to select
+Content
+>
+Classification
+.
+Click on the section labeled
+Classify
+, then paste a URL from your website and press
+Classify
+.
+After a moment or two, a set of preliminary classification details will come back. Most notably, ensure the
+Title
+,
+Primary Image
+, and
+Topics
+come back with content. If they do not, please refer to our
+for configuring content and meta tags.
+Updated
+5 months ago
+Did this page help you?
+Yes
+No
