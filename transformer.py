@@ -6,9 +6,10 @@ from langchain_huggingface.embeddings import HuggingFaceEmbeddings
 from langchain_core.runnables import RunnableLambda
 from langchain_huggingface import HuggingFaceEndpoint
 from langchain_core.prompts import PromptTemplate
+import os
 
 
-
+token = os.getenv("HUGGING_FACE_TOKEN")
 
 warnings.filterwarnings("ignore", category=UserWarning, module="langchain")
 
@@ -41,7 +42,7 @@ repo_id = 'mistralai/Mistral-7B-Instruct-v0.3'
 
 
 
-llm = HuggingFaceEndpoint(repo_id=repo_id,huggingfacehub_api_token="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",max_length=128,
+llm = HuggingFaceEndpoint(repo_id=repo_id,huggingfacehub_api_token=token,max_length=128,
     temperature=0.5)
 
 prompt_runnable = RunnableLambda(lambda q: generate_prompt(q))
