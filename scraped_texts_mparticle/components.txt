@@ -1,0 +1,256 @@
+IDSync | Components of IDSync
+Documentation
+Developers
+API References
+Data Subject Request API
+Platform API
+Warehouse Sync API
+Client SDKs
+AMP
+Android
+Cordova
+Direct Url Routing
+Flutter
+iOS
+Roku
+React Native
+Unity
+Xbox
+Web
+Xamarin
+Quickstart
+HTTP Quick Start
+Android
+Java Quick Start
+iOS Quick Start
+Node Quick Start
+Python Quick Start
+Web
+Server SDKs
+Media SDKs
+Tools
+Guides
+Partners
+Outbound Integrations
+Kit Integrations
+Migrate from Segment to mParticle
+Guides
+Getting Started
+Platform Guide
+The New mParticle Experience
+Observability
+Billing
+Personalization
+Audiences
+Calculated Attributes
+Predictive Audiences
+Journeys
+Predictive Attributes
+Predict Future Behavior
+Next Best Action
+Analytics
+Setup
+Settings
+Analytics Data Manager
+Query Builder
+Analyses
+Segmentation: Basics
+Segmentation: Advanced
+Funnels: Basics
+Funnels: Advanced
+Cohorts
+Journeys
+Users
+Dashboards
+Analytics Resources
+Tutorials
+APIs
+IDSync
+Data Master
+Group Identity
+Data Plans
+Import Data with CSV Files
+Analytics (Deprecated)
+Identity Providers
+Settings
+Developer Docs
+Integrations
+Data Warehouses and Data Lakes
+APIs
+SDKs
+Developer Basics
+Components of IDSync
+Identity API
+The identity API is used by all of mParticle’s SDKs to log users in and out of your app, to search for, and to modify a current user’s identities. It is also available as an HTTP API.
+The identity API provides four endpoints for identifying users:
+Identify - called when a session begins with whatever identifying information is available
+Search - called to find current user identities or determine if a specific user exists
+Login - called when a known user signs into the app.
+Logout - called when a known user signs out
+These four endpoints are called in response to different user actions, but they all perform the same function - resolving a request containing all known identifying information for the current user into a single, unique mParticle User Profile. That profile might be:
+An existing profile that matches all identifying information in the request
+An existing profile that matched some identifying information in the request, updated to include new information.
+A new user profile, created when no existing profiles matched the request.
+Identity strategies
+Identity strategies determine which user profile to add data to when the current user can be identified, and what to do when the current user cannot be identified.
+There are 5 identity strategies that have been designed to handle different business and privacy requirements.
+Profile conversion
+The
+is designed to help build a comprehensive picture of a user’s entire journey through a traditional sales funnel.
+The main distinguishing feature of this strategy is that when a new login ID is received, IDSync will not create a new profile. Instead, it will simply add the new login ID to the previous profile used to store data collected when the user was anonymous.
+Default identity strategy
+The
+strategy is a simplified version of the profile conversion strategy. The main difference is that the unique ID and login ID for the default identity strategy are set to
+customer_id
+, and they cannot be changed.
+Profile link
+The
+strategy is optimized to track the events that drive users to create an account or make purchases.
+Profile isolation
+The
+strategy is built to prevent any anonymous data from being attributed to known users. This strategy is helpful when strict compliance with consumer protection and privacy regulation is required.
+Best match
+The
+strategy is not optimized to help uniquely identify users. It is best suited for businesses that do not have a login flow or that provide their primary services without requiring users to log in.
+Identity priorities
+Each identity strategy must define the order of precedence for matching user profiles. When an identity request is received, mParticle looks up matching profiles for each identifier in the order defined by the identity priority until a single profile can be returned. Keep in mind that some identity strategies impose minimum requirements that a request must fulfill in order to return a user even if they match (see
+). For now, let’s just look at how the identity priority can affect which profile is returned by a request.
+Example
+User profiles
+Profile 1
+Profile 2
+Email:
+h.jekyll.md@example.com
+IDFV:
+1234
+Other:
+AAAA
+Email:
+h.jekyll.md@example.com
+GAID:
+2345
+Other:
+BBBB
+Scenarios
+Identity Priority
+IDSync API Request
+Results
+1. Customer ID
+2. Email
+3. Other
+4. IDFV
+5. GAID
+Email:
+h.jekyll.md@example.com
+Other:
+AAAA
+IDFV:
+2345
+Highest priority lookup (email) returns Profiles 1 and 2. Next highest priority (other) used as a tiebreaker.
+Profile 1
+is returned. Other identifiers may or may not be updated based on the type of IDSync API request.
+1. Customer ID
+2. Email
+3. IDFV
+4. GAID
+Email:
+h.jekyll.md@example.com
+GAID:
+2345
+Highest priority lookup (email) returns both Profiles 1 and 2. Next highest priority (IDFV) is not in the request, Following highest priority (GAID) used as a tiebreaker.
+Profile 2
+is returned.
+When Choosing your identity priority, ask the following questions about each of the identities you collect:
+Is it an immutable ID? An immutable ID, such as Customer ID, must be the top rank identifier above all other IDs since it is a definitive customer identifier that is often shared across multiple apps or business areas in your organization.
+Are they unique IDs? Unique IDs should be near the top of your hierarchy.
+Do your customers use the ID to log in? Login IDs should also be near the top of your hierarchy.
+Are they mutable? Some IDs may be changed by a user over time. Email is a good example.
+Does it permanently identify a user? Some IDs are anonymous - cookies, device advertising IDs or other temporary IDs used for experimentation. Generally speaking, these should rank lower than IDs that permanently identify a user.
+How likely are collisions for this ID? These should be ranked lowest in the hierarchy.
+Feed specific user identifiers
+There are some input feeds that always include a specific user identifier that you may or may not want to include in your identity priority list. To ensure that IDSync requests from one-off feeds like this can still be resolved even if you decided to omit their specific identifiers from your identity priority, you can configure an additional identifier for that specific feed without having to modify your overall identity priority.
+If you ingest data from a feed with an extra identifier configured, mParticle still attempts to resolve any IDSync requests using your normal identity priority list first. Then, if no matching profiles are found, mParticle tries any additional identifiers configured for the feed. If a matching profile is still not found, then mParticle handles the anonymous user according to your identity strategy.
+To configure additional user identifiers for a feed, contact your mParticle account representative.
+Example
+For an example of how feed specific identifiers work, imagine the following two user profiles and stored identities:
+Profile 1
+IDFV:
+1234
+AID:
+9876
+Profile 2
+Email:
+h.jekyll.md@example.com
+GAID:
+5678
+Now imagine that we have the following identity priority list configured:
+Customer ID
+Email
+IDFV
+GAID
+Let’s look at two scenarios where data is ingested from the same input feed with the same identity priority list described above.
+Scenario 1: without a feed-specific user identifier
+In this first scenario, data is ingested from the feed and an IDSync request is made for a user with the only identifier being an AID of
+9876
+.
+Since AID isn’t used in the identity priority and AID isn’t configured as a feed-specific identifier, IDSync fails to resolve the identity and the user is treated anonymously according to the identity strategy even though Profile 1 would be a match for the user.
+Scenario 2: with a feed-specific user identifier
+In the second scenario, AID is configured as a feed-specific identifier. Now, if the same IDSync request is submitted for a user with an AID of
+9876
+, IDSync resolves the request to Profile 1. However, this will only be successful if the IDSync request is made for data ingested from the same feed that has AID configured as a specific identifier.
+Was this page helpful?
+Yes
+No
+Last Updated:
+February 28, 2025
+Table of Contents
+Identity API
+Identity strategies
+Profile conversion
+Default identity strategy
+Profile link
+Profile isolation
+Best match
+Identity priorities
+Example
+Feed specific user identifiers
+Example
+By clicking “Accept All Cookies”, you agree to the storing of cookies on your device to enhance site navigation, analyze site usage, and assist in our marketing efforts.
+Cookie settings
+Accept all cookies
+Do Not Sell or Share My Personal Data
+When you visit our website, we store cookies on your browser to collect information. The information collected might relate to you, your preferences or your device, and is mostly used to make the site work as you expect it to and to provide a more personalized web experience. However, you can choose not to allow certain types of cookies, which may impact your experience of the site and the services we are able to offer. Click on the different category headings to find out more and change our default settings according to your preference. You cannot opt-out of our First Party Strictly Necessary Cookies as they are deployed in order to ensure the proper functioning of our website (such as prompting the cookie banner and remembering your settings, to log into your account, to redirect you when you log out, etc.). For more information about the First and Third Party Cookies used please follow this link.
+Allow all
+Manage Consent Preferences
+Strictly Necessary Cookies
+Always Active
+These cookies are necessary for the website to function and cannot be switched off in our systems. They are usually only set in response to actions made by you which amount to a request for services, such as setting your privacy preferences, logging in or filling in forms. You can set your browser to block or alert you about these cookies, but some parts of the site will not then work. These cookies do not store any personally identifiable information.
+Share Or Sale of Personal Data
+Share Or Sale of Personal Data
+Under the CPRA, you have the right to opt-out of the sale or sharing of your personal information to third parties. These cookies collect information for analytics and to personalize your experience with targeted ads. You may exercise your right to opt out of the sale or sharing of personal information by using this toggle switch. If you opt out we will not be able to offer you personalized ads and will not hand over your personal information to any third parties. Additionally, you may contact our legal department for further clarification about your rights as a California consumer by using this Exercise My Rights link.If you have enabled privacy controls on your browser (such as a plugin), we have to take that as a valid request to opt-out. Therefore we would not be able to track your activity through the web. This may affect our ability to personalize ads according to your preferences.
+Targeting Cookies
+Switch Label
+label
+These cookies may be set through our site by our advertising partners. They may be used by those companies to build a profile of your interests and show you relevant adverts on other sites. They do not store directly personal information, but are based on uniquely identifying your browser and internet device. If you do not allow these cookies, you will experience less targeted advertising.
+Performance Cookies
+Switch Label
+label
+These cookies allow us to count visits and traffic sources so we can measure and improve the performance of our site. They help us to know which pages are the most and least popular and see how visitors move around the site. All information these cookies collect is aggregated and therefore anonymous. If you do not allow these cookies we will not know when you have visited our site, and will not be able to monitor its performance.
+Back Button
+Cookie List
+Search Icon
+Filter Icon
+Clear
+checkbox label
+label
+Apply
+Cancel
+Consent
+Leg.Interest
+checkbox label
+label
+checkbox label
+label
+checkbox label
+label
+Confirm my choices

@@ -1,0 +1,177 @@
+Getting Started | Transform and Enhance Your Data
+Documentation
+Developers
+API References
+Data Subject Request API
+Platform API
+Warehouse Sync API
+Client SDKs
+AMP
+Android
+Cordova
+Direct Url Routing
+Flutter
+iOS
+Roku
+React Native
+Unity
+Xbox
+Web
+Xamarin
+Quickstart
+HTTP Quick Start
+Android
+Java Quick Start
+iOS Quick Start
+Node Quick Start
+Python Quick Start
+Web
+Server SDKs
+Media SDKs
+Tools
+Guides
+Partners
+Outbound Integrations
+Kit Integrations
+Migrate from Segment to mParticle
+Guides
+Getting Started
+Platform Guide
+The New mParticle Experience
+Observability
+Billing
+Personalization
+Audiences
+Calculated Attributes
+Predictive Audiences
+Journeys
+Predictive Attributes
+Predict Future Behavior
+Next Best Action
+Analytics
+Setup
+Settings
+Analytics Data Manager
+Query Builder
+Analyses
+Segmentation: Basics
+Segmentation: Advanced
+Funnels: Basics
+Funnels: Advanced
+Cohorts
+Journeys
+Users
+Dashboards
+Analytics Resources
+Tutorials
+APIs
+IDSync
+Data Master
+Group Identity
+Data Plans
+Import Data with CSV Files
+Analytics (Deprecated)
+Identity Providers
+Settings
+Developer Docs
+Integrations
+Data Warehouses and Data Lakes
+APIs
+SDKs
+Developer Basics
+Transform and Enhance Your Data
+If you’ve followed our guide this far, you have a firm grounding in the basics of mParticle. Now you’re ready to use some of our advanced and premium features to transform, enrich and enhance your data. Here are a few suggestions for where you might want to explore next.
+Establish your Identity Strategy
+This guide has
+collecting identities, such as email addresses, for your users. mParticle’s IDSync feature gives you a lot of control over how you identify and track your users over time, and selecting an Identity Strategy is one of the most important decisions you need to make when implementing mParticle. Read our full
+for more.
+Add more sources
+For most mParticle clients, the primary sources of data are native and web apps, instrumented with the mParticle SDK, but you can also use mParticle to leverage other sources of data to build a more complete picture of your users:
+The
+can be used to send supplementary server-side data.
+Our main
+and
+SDKs can also be instrumented in AppleTV and FireTV apps, and we publish independent SDKs for
+and
+.
+If you use a cross-platform development framework, you can use our libraries for
+,
+,
+, and
+to interface with our native SDKs.
+Use Feeds to bring in data from other services.
+Explore advanced Audience features
+If you want to compare different messaging platforms or strategies, you can use mParticle to conduct an
+by splitting an audience into two or more variations and connecting each to different outputs.
+The more specific your audiences, the more you are likely to need to create. If you have a large number of audiences to forward, use
+workflow to speed things up.
+Transform your Data
+One of the core benefits of mParticle is the ability to capture data once and forward it to multiple outputs. However, you probably don’t want to send
+all
+your data to
+every
+output. mParticle provides you with a full set of tools to filter and transform your data. Use these tools to control the flow of Personally Identifiable Information (PII), to customize the data you send to each output and to control your costs.
+The
+allows you to individually filter each data point for each output.
+User Splits allow you to test competing services by dividing your users into groups and connecting each group to different outputs.
+allow you to block data to an output according to simple predefined rules.
+allows you to send only a subset of your data to a given output. This is usually done to control costs for services that charge according to data volume or unique user counts.
+For advanced transformations, the
+feature allows you to host a custom function on AWS Lambda which can change almost any aspect of your data.
+Manage your GDPR Obligations
+If you have users in the European Union, you may have obligations as a Data Controller under the General Data Processing Regulation. mParticle provides tools, available as premium features, to help you manage two aspects of GDPR compliance:
+Know your limits
+Part of the purpose of mParticle is to allow you to maximize leverage of your data without compromising performance. In order to protect the performance of both your app and the mParticle dashboard, we impose certain limits on the data you can send. If you’re a dashboard user, you can read a brief summary of the default limits,
+. If you need the full picture, you can read our
+.
+Was this page helpful?
+Yes
+No
+Last Updated:
+February 28, 2025
+Table of Contents
+Establish your Identity Strategy
+Add more sources
+Explore advanced Audience features
+Transform your Data
+Manage your GDPR Obligations
+Know your limits
+By clicking “Accept All Cookies”, you agree to the storing of cookies on your device to enhance site navigation, analyze site usage, and assist in our marketing efforts.
+Cookie settings
+Accept all cookies
+Do Not Sell or Share My Personal Data
+When you visit our website, we store cookies on your browser to collect information. The information collected might relate to you, your preferences or your device, and is mostly used to make the site work as you expect it to and to provide a more personalized web experience. However, you can choose not to allow certain types of cookies, which may impact your experience of the site and the services we are able to offer. Click on the different category headings to find out more and change our default settings according to your preference. You cannot opt-out of our First Party Strictly Necessary Cookies as they are deployed in order to ensure the proper functioning of our website (such as prompting the cookie banner and remembering your settings, to log into your account, to redirect you when you log out, etc.). For more information about the First and Third Party Cookies used please follow this link.
+Allow all
+Manage Consent Preferences
+Strictly Necessary Cookies
+Always Active
+These cookies are necessary for the website to function and cannot be switched off in our systems. They are usually only set in response to actions made by you which amount to a request for services, such as setting your privacy preferences, logging in or filling in forms. You can set your browser to block or alert you about these cookies, but some parts of the site will not then work. These cookies do not store any personally identifiable information.
+Share Or Sale of Personal Data
+Share Or Sale of Personal Data
+Under the CPRA, you have the right to opt-out of the sale or sharing of your personal information to third parties. These cookies collect information for analytics and to personalize your experience with targeted ads. You may exercise your right to opt out of the sale or sharing of personal information by using this toggle switch. If you opt out we will not be able to offer you personalized ads and will not hand over your personal information to any third parties. Additionally, you may contact our legal department for further clarification about your rights as a California consumer by using this Exercise My Rights link.If you have enabled privacy controls on your browser (such as a plugin), we have to take that as a valid request to opt-out. Therefore we would not be able to track your activity through the web. This may affect our ability to personalize ads according to your preferences.
+Targeting Cookies
+Switch Label
+label
+These cookies may be set through our site by our advertising partners. They may be used by those companies to build a profile of your interests and show you relevant adverts on other sites. They do not store directly personal information, but are based on uniquely identifying your browser and internet device. If you do not allow these cookies, you will experience less targeted advertising.
+Performance Cookies
+Switch Label
+label
+These cookies allow us to count visits and traffic sources so we can measure and improve the performance of our site. They help us to know which pages are the most and least popular and see how visitors move around the site. All information these cookies collect is aggregated and therefore anonymous. If you do not allow these cookies we will not know when you have visited our site, and will not be able to monitor its performance.
+Back Button
+Cookie List
+Search Icon
+Filter Icon
+Clear
+checkbox label
+label
+Apply
+Cancel
+Consent
+Leg.Interest
+checkbox label
+label
+checkbox label
+label
+checkbox label
+label
+Confirm my choices

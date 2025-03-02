@@ -1,0 +1,160 @@
+IDSync | Use Cases for IDSync
+Documentation
+Developers
+API References
+Data Subject Request API
+Platform API
+Warehouse Sync API
+Client SDKs
+AMP
+Android
+Cordova
+Direct Url Routing
+Flutter
+iOS
+Roku
+React Native
+Unity
+Xbox
+Web
+Xamarin
+Quickstart
+HTTP Quick Start
+Android
+Java Quick Start
+iOS Quick Start
+Node Quick Start
+Python Quick Start
+Web
+Server SDKs
+Media SDKs
+Tools
+Guides
+Partners
+Outbound Integrations
+Kit Integrations
+Migrate from Segment to mParticle
+Guides
+Getting Started
+Platform Guide
+The New mParticle Experience
+Observability
+Billing
+Personalization
+Audiences
+Calculated Attributes
+Predictive Audiences
+Journeys
+Predictive Attributes
+Predict Future Behavior
+Next Best Action
+Analytics
+Setup
+Settings
+Analytics Data Manager
+Query Builder
+Analyses
+Segmentation: Basics
+Segmentation: Advanced
+Funnels: Basics
+Funnels: Advanced
+Cohorts
+Journeys
+Users
+Dashboards
+Analytics Resources
+Tutorials
+APIs
+IDSync
+Data Master
+Group Identity
+Data Plans
+Import Data with CSV Files
+Analytics (Deprecated)
+Identity Providers
+Settings
+Developer Docs
+Integrations
+Data Warehouses and Data Lakes
+APIs
+SDKs
+Developer Basics
+Use Cases for IDSync
+mParticle’s IDSync features are designed to address the following common issues with user management.
+User continuity
+A common scenario for a media or ecommerce app goes something like this:
+User downloads an app but has not yet registered an account.
+User browses around in the app. Visits screens A, B and C. Data collection begins, but since the user has not yet registered, this activity is stored against an anonymous user profile identified only by an anonymous ID (such as a device ID).
+User decides to register for an account, creating a new logged-in user profile, and continues to use the app while signed in. Visits screens D and E, and buys product F.
+How should the data from this interaction be organized? There are two basic approaches:
+Link the new logged-in user profile with the original anonymous one. This approach yields a continuous view of the user journey.
+At the moment of user registration, create a new user profile and keep the post-signup activity completely separate from the pre-signup activity.
+There are compelling business and legal arguments for and against each approach. By choosing the first approach, you have a chance to preserve a complete history of a user’s experience with your app. This might be invaluable for improving your funnel. However, you also introduce the possibility of mingling data from several users into a single profile. For example, on a shared device, multiple users might access the app in a pre-signup state.
+The second approach sacrifices the possibility of collecting a user’s entire history under a single continuous view. However, you can be sure that the data from your logged-in users is never mixed up with data from a different user. Quarantining anonymous data from known user data may also be required by law.
+IDSync is designed to let you make smart decisions about user continuity that fit the needs of your app and to give you transparency into how user profiles are created and updated.
+Cross-device tracking
+Users often interact with an app ecosystem through more than one device. For example, users might interact with an eCommerce app through both a native app and a web browser, or view media content on a web browser, a native app, or a Roku channel.
+Many apps will want to track events and lifetime value for a user across all platforms, but others will prefer to keep data for each platform separate. IDSync allows mParticle to support both use cases, and to harness 3rd party data to decisively link data generated from your apps with data from other sources, like CRM Feeds.
+Cross-app tracking
+Your product ecosystem may be spread not just across multiple platforms, but also multiple apps. Needs for tracking users across multiple apps will vary depending on your business model. For example, a gaming organization might publish dozens of individual games and want to track their user’s LTV across all their apps. By creating workspaces for each app group under the same mParticle account, you can allow them to share a pool of users, and create only one profile per known user, no matter how many of your apps they use.
+Alternatively, you might wish to define different groups of users for different apps within the same ecosystem. For example, you might have one app for vendors and another for buyers, with a completely different set of metrics for each group. IDSync allows mParticle to support either use case.
+Customer experience personalization
+Personalization of customer experience (CX) is a top priority for marketers. Personalization reduces friction and increases conversions by presenting relevant in-context content that increases customer awareness, engagement, and satisfaction. The Immutable Identity Setting enables marketers to use the mParticle Profile API to get the most up-to-date real-time user identities, device identities, user attributes, and audience memberships. The Profile API uses either an identifier with Immutable Identity set or the mParticle Identifier to match a user profile. Additionally, IDSync Search allows marketers to query User Profiles by any known identifier, such as email, mobile phone, or device identity, and return all matched user identity values including the mParticle ID. The mParticle ID can then be used with Profile API to get the values necessary to personalize the customer experience.
+Privacy compliance
+The ability to provide evidence that demonstrates that your organization is in regulatory compliance is important to every Chief Privacy Officer and corporate information security executive. GDPR and CCPA data privacy controls and traceability are core to mParticle’s user profile data policies. In addition, the IDSync Search capability can verify that a matching User Profile exists. It can also be used after a GDPR or CCPA User Profile Delete Request has been processed, to validate that the process has completed successfully and thereby validate compliance.
+Mutable identities
+Different user identifiers have different lifespans and degrees of specificity. A Customer ID or a social media ID permanently identify a single user, while an IP Address or Session ID may not be sufficient to identify a single user and can change at any time. Other identifiers fall somewhere in between. Email addresses, for example, do identify a single user, but a user may change their email address over time. IDSync gives you the tools to update identifiers for a User Profile without losing that user’s history.
+Identity translation
+With mParticle managing all available identities for a user, you’re freed up to focus on your data. One messaging service requires an email address while another needs Push Tokens? Don’t worry about it. Build your messaging audiences in mParticle based on any criteria you need and mParticle will forward the correct identities for each service, as long as they are available.
+Was this page helpful?
+Yes
+No
+Last Updated:
+February 28, 2025
+Table of Contents
+User continuity
+Cross-device tracking
+Cross-app tracking
+Customer experience personalization
+Privacy compliance
+Mutable identities
+Identity translation
+By clicking “Accept All Cookies”, you agree to the storing of cookies on your device to enhance site navigation, analyze site usage, and assist in our marketing efforts.
+Cookie settings
+Accept all cookies
+Do Not Sell or Share My Personal Data
+When you visit our website, we store cookies on your browser to collect information. The information collected might relate to you, your preferences or your device, and is mostly used to make the site work as you expect it to and to provide a more personalized web experience. However, you can choose not to allow certain types of cookies, which may impact your experience of the site and the services we are able to offer. Click on the different category headings to find out more and change our default settings according to your preference. You cannot opt-out of our First Party Strictly Necessary Cookies as they are deployed in order to ensure the proper functioning of our website (such as prompting the cookie banner and remembering your settings, to log into your account, to redirect you when you log out, etc.). For more information about the First and Third Party Cookies used please follow this link.
+Allow all
+Manage Consent Preferences
+Strictly Necessary Cookies
+Always Active
+These cookies are necessary for the website to function and cannot be switched off in our systems. They are usually only set in response to actions made by you which amount to a request for services, such as setting your privacy preferences, logging in or filling in forms. You can set your browser to block or alert you about these cookies, but some parts of the site will not then work. These cookies do not store any personally identifiable information.
+Share Or Sale of Personal Data
+Share Or Sale of Personal Data
+Under the CPRA, you have the right to opt-out of the sale or sharing of your personal information to third parties. These cookies collect information for analytics and to personalize your experience with targeted ads. You may exercise your right to opt out of the sale or sharing of personal information by using this toggle switch. If you opt out we will not be able to offer you personalized ads and will not hand over your personal information to any third parties. Additionally, you may contact our legal department for further clarification about your rights as a California consumer by using this Exercise My Rights link.If you have enabled privacy controls on your browser (such as a plugin), we have to take that as a valid request to opt-out. Therefore we would not be able to track your activity through the web. This may affect our ability to personalize ads according to your preferences.
+Targeting Cookies
+Switch Label
+label
+These cookies may be set through our site by our advertising partners. They may be used by those companies to build a profile of your interests and show you relevant adverts on other sites. They do not store directly personal information, but are based on uniquely identifying your browser and internet device. If you do not allow these cookies, you will experience less targeted advertising.
+Performance Cookies
+Switch Label
+label
+These cookies allow us to count visits and traffic sources so we can measure and improve the performance of our site. They help us to know which pages are the most and least popular and see how visitors move around the site. All information these cookies collect is aggregated and therefore anonymous. If you do not allow these cookies we will not know when you have visited our site, and will not be able to monitor its performance.
+Back Button
+Cookie List
+Search Icon
+Filter Icon
+Clear
+checkbox label
+label
+Apply
+Cancel
+Consent
+Leg.Interest
+checkbox label
+label
+checkbox label
+label
+checkbox label
+label
+Confirm my choices

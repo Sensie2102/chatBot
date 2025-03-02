@@ -1,0 +1,13 @@
+Privacy Tools Overview | Segment Documentation
+/
+Privacy Tools Overview
+Privacy Tools Overview
+Segment includes a suite of Privacy tools to help your organization comply with regulations like HIPAA, the GDPR, and the CCPA.
+Proactively identify PII with the Privacy Portal
+Prepare for GDPR & CCPA
+Yes
+No
+or
+Yes
+No
+this doc?

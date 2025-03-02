@@ -1,0 +1,613 @@
+Guides | Data Privacy Controls
+Documentation
+Developers
+API References
+Data Subject Request API
+Platform API
+Warehouse Sync API
+Client SDKs
+AMP
+Android
+Cordova
+Direct Url Routing
+Flutter
+iOS
+Roku
+React Native
+Unity
+Xbox
+Web
+Xamarin
+Quickstart
+HTTP Quick Start
+Android
+Java Quick Start
+iOS Quick Start
+Node Quick Start
+Python Quick Start
+Web
+Server SDKs
+Media SDKs
+Tools
+Guides
+Partners
+Outbound Integrations
+Kit Integrations
+Migrate from Segment to mParticle
+Guides
+Getting Started
+Platform Guide
+The New mParticle Experience
+Observability
+Billing
+Personalization
+Audiences
+Calculated Attributes
+Predictive Audiences
+Journeys
+Predictive Attributes
+Predict Future Behavior
+Next Best Action
+Analytics
+Setup
+Settings
+Analytics Data Manager
+Query Builder
+Analyses
+Segmentation: Basics
+Segmentation: Advanced
+Funnels: Basics
+Funnels: Advanced
+Cohorts
+Journeys
+Users
+Dashboards
+Analytics Resources
+Tutorials
+APIs
+IDSync
+Data Master
+Group Identity
+Data Plans
+Import Data with CSV Files
+Analytics (Deprecated)
+Identity Providers
+Settings
+Developer Docs
+Integrations
+Data Warehouses and Data Lakes
+APIs
+SDKs
+Developer Basics
+Data Privacy Controls
+Manage your consent and opt-out privacy obligations under the GDPR and CCPA with Data Privacy Controls. This feature is not prescriptive and there is no single way to implement consent or opt-out. Instead, mParticle gives you a simple, standard technique for storing and applying consent and opt-out choices. Consent state powers both GDPR consent and CCPA data sale opt-out.
+This guide introduces you to mParticle’s data privacy control functionality and shows you how to collect an individual’s consent and apply it to your data flows.
+Common uses of data privacy controls
+Data privacy controls are flexible and customizable, allowing you to build any data flow or consent-based logic you need.
+Use mParticle’s data privacy controls to help comply with CCPA’s “do not sell my data” requirement by collecting users who opt-out and blocking those users’ data from flowing to any ‘data sale’ output by:
+Recording a CCPA data sale opt-out as a user consent (more information below)
+Identify which outputs count as ‘data sale’ and apply the below forwarding rule to them
+Applying a forwarding rule of: Do not forward if CCPA Data sale opt out is present
+GDPR defines consent as one method of lawful data processing. One common setup is to:
+Define a processing purpose of ‘marketing’
+Prompt users for affirmative consent for ‘marketing’
+Identify which outputs would perform ‘analytics’ processing
+Apply a forwarding rule of: Only forward user data if GDPR Consent for ‘marketing’ is true
+Data privacy and the mParticle platform
+Once enabled and configured, data privacy work with the mParticle platform to ingest and pass on consent state:
+Define categories of data collection called consent purposes.
+Store the consent state in a user’s profile.
+Control data flow based on stored consent.
+Send user consent state to your integrations (outputs).
+Enabling data privacy controls
+Data privacy controls save user consent decisions and applies them to data flows.
+Enable GDPR and/or CCPA compliance features on your workspace from
+Workspace Settings
+>
+Workspace
+>
+Regulation
+.
+For GDPR, create a set of purposes from
+Privacy > Privacy Settings
+in the dashboard.
+A purpose defines the scope of data collection and processing to which the user may consent. GDPR recognizes several different purposes for data collection including the possibility of a user consenting to some purposes of data collection but not others. mParticle does not limit you to a specific set of purposes, but rather lets you define your own purposes when you set up a workspace.
+For CCPA, once it is enabled in your workspace, the purpose
+data_sale_opt_out
+is automatically created. The SDKs and mParticle UIs facilitate using this purpose, so you don’t need to hardcode it anywhere.
+Consent properties
+The mParticle format for a single record of a user decision on a privacy prompt,
+.consent
+, is our
+consent_state
+object. This is used for both GDPR-style opt-in consent and for CCPA-style opt-out.
+For each user or workspace, consent state can be stored for each possible combination of regulation and purpose. For each purpose, the following fields are supported.
+All fields are optional, except
+consented
+,
+timestamp_unixtime_ms
+,
+regulation
+and
+purpose
+. The
+regulation
+and
+purpose
+fields are built into the structure. Be sure to include your privacy and compliance experts when deciding how to implement optional fields.
+Property
+Type, Required
+Example Values
+Description
+regulation
+string
+Required
+gdpr
+The regulation under which a user consent or preference is being saved. Currently
+gdpr
+and
+ccpa
+are supported.
+purpose
+string
+Required
+geolocation
+A data processing purpose that describes the type of processing done on the data subject’s data. For GDPR, purposes must be defined in mParticle before using them in a consent_state object. For CCPA, this is not required as the default CCPA purpose is
+data_sale_opt_out
+consented
+bool
+Required
+true
+/
+false
+For GDPR, this records the user’s decision on the prompted consent purpose. If the user agreed (
+true
+) or rejected (
+false
+). For CCPA, set this to
+true
+if the user has opted-out of data sale and
+false
+if they have not opted-out of data sale.
+timestamp_unixtime_ms
+number
+Required
+1510949166
+A timestamp for the creation of the consent state. mParticle’s SDKs send this field automatically. If using the HTTP API, this field must be set manually.
+document
+string
+Not required
+"v23.2b"
+An identifier for the document, document version or experience that the user may have consented to.
+location
+string
+Not required
+"example.com/"
+,
+"17 Cherry Tree Lane"
+A location where the user gave consent. This property exists only to provide additional context. It may be a physical or digital location.
+hardware_id
+string
+Required
+"IDFA:a5d934n0-232f-4afc-2e9a-3832d95zc702"
+A hardware ID for the device or browser used to give consent. This property exists only to provide additional context and is not used to identify users.
+Example consent state
+Consent state can be logged via the HTTP API simply by including a consent state object in a batch, mirroring the structure of the user profile (above):
+"consent_state"
+:
+{
+"gdpr"
+:
+{
+"location_collection"
+:
+{
+"document"
+:
+"location_collection_agreement.v43"
+,
+"consented"
+:
+true
+,
+"timestamp_unixtime_ms"
+:
+1523039002083
+,
+"location"
+:
+"dtmgbank.com/signup"
+,
+"hardware_id"
+:
+"IDFA:a5d934n0-232f-4afc-2e9a-3832d95zc702"
+}
+,
+"parental"
+:
+{
+"document"
+:
+"standard_parental_consent.v2"
+,
+"consented"
+:
+true
+,
+"timestamp_unixtime_ms"
+:
+1523039002083
+,
+"location"
+:
+"dtmgbank.com/signup"
+,
+"hardware_id"
+:
+"IDFA:a5d934n0-232f-4afc-2e9a-3832d95zc702"
+}
+}
+,
+"ccpa"
+:
+{
+"data_sale_opt_out"
+:
+{
+"consented"
+:
+true
+,
+"timestamp_unixtime_ms"
+:
+1579198790480
+}
+}
+}
+Collecting consent state
+For detailed definitions of how to report consent state, review the sections of our API and SDK references that cover data privacy controls:
+Additionally, our
+allows you to ingest customer consent states into mParticle.
+Using consent state
+User profiles
+Consent state is maintained per person on the User Profile using the structure defined above.
+For testing consent, you can use
+to check that a consent was recorded correctly. Here is an example of how CCPA data sale opt-out will appear:
+Audiences
+Consent state can be used to create conditions in the Audience Builder to check a users’ consent state as a requirement for audience inclusion or exclusion.
+For example, for CCPA you may want to include only users who have NOT opted out of data sale, by adding a criteria like this:
+For GDPR, you may want to include only users that have an opt-in consent for a given purpose, shown here as ‘Advertising’:
+Connections and forwarding rules
+Consent state can be used to create forwarding rules that selectively filter data based on a users consent state, in real time and per-person.
+For example, you can choose to only forward data from users who have given consent for a particular purpose.
+For CCPA, you may want a forwarding rule to apply a data sale opt-out. In this example, users’ who have a consent state of
+true
+for the CCPA purpose of
+data_sale_opt_out
+will NOT have their data forwarded (if the consent state is missing or false for that purpose, data will flow):
+For GDPR, you may want a forwarding rule to only send data when a single purpose is consented:
+Kits and forwarding rules
+If you set up a Forwarding Rule for an embedded kit integration, the iOS and Android SDKs will check consent status for the user on initialization. If the rule condition fails, the kit will not be initialized. Note that kits are only initialized when a session begins or on user change, so if consent status changes in the course of a session, while mParticle will immediately stop forwarding data to the kit, it is possible that an embedded kit may remain active and independently forwarding data to a partner from the client until the session ends.
+Forwarding consent state to partners
+When the consent state of a profile changes, that change can be communicated to mParticle event integrations. If the
+consent_state
+object on an incoming event batch contains changes from the existing profile, mParticle adds a ‘system notification’ to the batch for each consent state change before the batch is sent to incoming forwarders. This notification contains the full old and new consent state objects:
+"system_notifications"
+:
+[
+{
+"data"
+:
+{
+"purpose"
+:
+"location_collection"
+,
+"current"
+:
+{
+"regulation"
+:
+"GDPR"
+,
+"document"
+:
+"location_collection_agreement_v4"
+,
+"consented"
+:
+false
+,
+"timestamp_unixtime_ms"
+:
+1523045332033
+,
+"location"
+:
+"17 Cherry Tree Lane"
+,
+"hardware_id"
+:
+"IDFA:a5d934n0-232f-4afc-2e9a-3832d95zc702"
+}
+,
+"old"
+:
+{
+"regulation"
+:
+"GDPR"
+,
+"document"
+:
+"location_collection_agreement_v4"
+,
+"consented"
+:
+true
+,
+"timestamp_unixtime_ms"
+:
+1523039002083
+,
+"location"
+:
+"17 Cherry Tree Lane"
+,
+"hardware_id"
+:
+"IDFA:a5d934n0-232f-4afc-2e9a-3832d95zc702"
+}
+}
+,
+"type"
+:
+"gdpr_change"
+}
+]
+There are currently two ways that consent state changes are forwarded to mParticle event integrations:
+Some partners accept raw event batch data from mParticle, mostly for data storage or custom analytics use cases. For these partners, mParticle will forward the ‘system_notifications’ object with each relevant event batch. Forwarding of system notifications can be turned off with a user setting. Integrations that can currently receive the system notifications object include:
+mParticle is working with other partners to support forwarding consent state changes as a Custom Event. These events contain the new consent state information as custom attributes, a custom event type of
+"Consent"
+, and an event name of
+"Consent Given"
+or
+"Consent Rejected"
+. These consent events are forwarded to supporting partners as standard custom events.
+{
+"data"
+:
+{
+"event_name"
+:
+"Consent Given"
+,
+"custom_event_type"
+:
+"Consent"
+,
+"custom_attributes"
+:
+{
+"consented"
+:
+"true"
+,
+"document"
+:
+"location_collection_agreement_v4"
+,
+"hardware_id"
+:
+"IDFA:a5d934n0-232f-4afc-2e9a-3832d95zc702"
+,
+"purpose"
+:
+"location_collection"
+,
+"location"
+:
+"17 Cherry Tree Lane"
+,
+"regulation"
+:
+"GDPR"
+,
+"timestamp_unixtime_ms"
+:
+1523039002083
+}
+,
+"event_type"
+:
+"custom_event"
+}
+}
+Partners that currently accept these custom consent state events include:
+“GDPR Consent Change” is  listed as a data type in the
+and we will update this list as more partners add support. Please reach out to your success manager if you would like to distribute consent to an additional partner.
+Data subject requests
+mParticle helps you respond to
+as mandated by the GDPR and CCPA regulations.
+You can search for integrations that support data subject requests in the
+page. Search on category
+Data Subject Request
+.
+Ingest GPC signals
+The California Consumer Protection Act (CCPA) and the upcoming CPRA (California Privacy Rights Act) require that users can signal their privacy choices. In support of that requirement, you can ingest
+with mParticle.
+Browsers append the GPC signal to HTTP requests and make it queryable via the DOM. This signal is designed to convey a person’s request to websites and services to not sell or share their personal information with third parties, per
+. This opt-out is at the browser level, allowing users to turn on the GPC signal for all or specific websites.
+The workflow for ingesting and forwarding GPC signals via SDK or Events API:
+Sample code for GPC
+This sample code show two options: mapping to a GDPR purpose and mapping to a user attribute.
+/*
+First, grab the GPC signal. "true" indicates the user has signaled an opt-out
+See here for more details on querying the GPC signal:
+https://globalprivacycontrol.github.io/gpc-spec/
+*/
+var
+gpcSignal
+=
+navigator
+.
+globalPrivacyControl
+;
+/*
+Option 1:
+In this example, the GPC signal is mapped to a "targeting_collection" GDPR purpose.
+This is only an example, you determine the GDPR purposes and how GPC maps to them.
+You can do the same mapping to CPPA.
+*/
+var
+targeting_consent
+=
+mParticle
+.
+Consent
+.
+createGDPRConsent
+(
+!
+gpcSignal
+,
+// note that this is inverted
+Date
+.
+now
+(
+)
+,
+// Timestamp
+"browser_gpc_signal"
+,
+// Document
+"17 Cherry Tree Lane"
+,
+// Location
+"browser-id:a5d934n0-232f-4afc-2e9a-3832d95zc702"
+// Hardware ID
+)
+;
+// Add to your consent state
+var
+consentState
+=
+mParticle
+.
+Consent
+.
+createConsentState
+(
+)
+;
+consentState
+.
+addGDPRConsentState
+(
+"targeting_collection"
+,
+targeting_consent
+)
+;
+var
+user
+=
+mParticle
+.
+Identity
+.
+getCurrentUser
+(
+)
+;
+user
+.
+setConsentState
+(
+consentState
+)
+;
+/*
+Option 2:
+In this example, the GPC signal is mapped to a user attribute
+*/
+var
+user
+=
+mParticle
+.
+Identity
+.
+getCurrentUser
+(
+)
+;
+user
+.
+setUserAttribute
+(
+"gpc_signal"
+,
+gpcSignal
+)
+;
+Was this page helpful?
+Yes
+No
+Last Updated:
+February 28, 2025
+Table of Contents
+Common uses of data privacy controls
+Data privacy and the mParticle platform
+Enabling data privacy controls
+Consent properties
+Example consent state
+Collecting consent state
+Using consent state
+User profiles
+Audiences
+Connections and forwarding rules
+Forwarding consent state to partners
+Data subject requests
+Ingest GPC signals
+Sample code for GPC
+By clicking “Accept All Cookies”, you agree to the storing of cookies on your device to enhance site navigation, analyze site usage, and assist in our marketing efforts.
+Cookie settings
+Accept all cookies
+Do Not Sell or Share My Personal Data
+When you visit our website, we store cookies on your browser to collect information. The information collected might relate to you, your preferences or your device, and is mostly used to make the site work as you expect it to and to provide a more personalized web experience. However, you can choose not to allow certain types of cookies, which may impact your experience of the site and the services we are able to offer. Click on the different category headings to find out more and change our default settings according to your preference. You cannot opt-out of our First Party Strictly Necessary Cookies as they are deployed in order to ensure the proper functioning of our website (such as prompting the cookie banner and remembering your settings, to log into your account, to redirect you when you log out, etc.). For more information about the First and Third Party Cookies used please follow this link.
+Allow all
+Manage Consent Preferences
+Strictly Necessary Cookies
+Always Active
+These cookies are necessary for the website to function and cannot be switched off in our systems. They are usually only set in response to actions made by you which amount to a request for services, such as setting your privacy preferences, logging in or filling in forms. You can set your browser to block or alert you about these cookies, but some parts of the site will not then work. These cookies do not store any personally identifiable information.
+Share Or Sale of Personal Data
+Share Or Sale of Personal Data
+Under the CPRA, you have the right to opt-out of the sale or sharing of your personal information to third parties. These cookies collect information for analytics and to personalize your experience with targeted ads. You may exercise your right to opt out of the sale or sharing of personal information by using this toggle switch. If you opt out we will not be able to offer you personalized ads and will not hand over your personal information to any third parties. Additionally, you may contact our legal department for further clarification about your rights as a California consumer by using this Exercise My Rights link.If you have enabled privacy controls on your browser (such as a plugin), we have to take that as a valid request to opt-out. Therefore we would not be able to track your activity through the web. This may affect our ability to personalize ads according to your preferences.
+Targeting Cookies
+Switch Label
+label
+These cookies may be set through our site by our advertising partners. They may be used by those companies to build a profile of your interests and show you relevant adverts on other sites. They do not store directly personal information, but are based on uniquely identifying your browser and internet device. If you do not allow these cookies, you will experience less targeted advertising.
+Performance Cookies
+Switch Label
+label
+These cookies allow us to count visits and traffic sources so we can measure and improve the performance of our site. They help us to know which pages are the most and least popular and see how visitors move around the site. All information these cookies collect is aggregated and therefore anonymous. If you do not allow these cookies we will not know when you have visited our site, and will not be able to monitor its performance.
+Back Button
+Cookie List
+Search Icon
+Filter Icon
+Clear
+checkbox label
+label
+Apply
+Cancel
+Consent
+Leg.Interest
+checkbox label
+label
+checkbox label
+label
+checkbox label
+label
+Confirm my choices

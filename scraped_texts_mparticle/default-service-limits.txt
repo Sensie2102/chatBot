@@ -1,0 +1,371 @@
+Guides | Default Service Limits
+Documentation
+Developers
+API References
+Data Subject Request API
+Platform API
+Warehouse Sync API
+Client SDKs
+AMP
+Android
+Cordova
+Direct Url Routing
+Flutter
+iOS
+Roku
+React Native
+Unity
+Xbox
+Web
+Xamarin
+Quickstart
+HTTP Quick Start
+Android
+Java Quick Start
+iOS Quick Start
+Node Quick Start
+Python Quick Start
+Web
+Server SDKs
+Media SDKs
+Tools
+Guides
+Partners
+Outbound Integrations
+Kit Integrations
+Migrate from Segment to mParticle
+Guides
+Getting Started
+Platform Guide
+The New mParticle Experience
+Observability
+Billing
+Personalization
+Audiences
+Calculated Attributes
+Predictive Audiences
+Journeys
+Predictive Attributes
+Predict Future Behavior
+Next Best Action
+Analytics
+Setup
+Settings
+Analytics Data Manager
+Query Builder
+Analyses
+Segmentation: Basics
+Segmentation: Advanced
+Funnels: Basics
+Funnels: Advanced
+Cohorts
+Journeys
+Users
+Dashboards
+Analytics Resources
+Tutorials
+APIs
+IDSync
+Data Master
+Group Identity
+Data Plans
+Import Data with CSV Files
+Analytics (Deprecated)
+Identity Providers
+Settings
+Developer Docs
+Integrations
+Data Warehouses and Data Lakes
+APIs
+SDKs
+Developer Basics
+Default Service Limits
+mParticle imposes certain limits on incoming data in order to protect the performance of both the mParticle dashboard and your apps. This includes limits around the length of individual data points, such as event names, how fast mParticle can receive data, and how many unique data points a workspace or account can have.
+The tables below list mParticle’s Default Limits. Enterprise customers should contact their Customer Success Manager for custom limits.
+mParticle can receive data across many channels, and limits are not always enforced in the same way for each channel. Where appropriate, the details section of each table describes how limits affect SDK data - received from mParticle’s native SDKs - and S2S or ‘server-to-server’ data. S2S data includes data received via the
+, and from partner feeds.
+Incoming event batches
+The following limits apply to event batches being ingested.
+Resource
+Limits
+Details
+Event name length
+256 characters
+SDK logs an error and the event is not uploaded. For S2S data, names exceeding the limit is truncated.
+Event attribute name length
+256 characters
+SDK logs an error and no attributes are set for the event. S2S truncates the attribute name.
+Event attribute value length
+4096 characters
+SDK logs an error and no attributes are set for the event.
+User attributes per event batch
+100
+SDK allows only 100 attributes per user and logs an error if you attempt to create additional attributes.
+User attribute name length
+256 characters
+SDK logs an error and no attributes are set.
+User attribute value length
+4096 characters
+SDK logs an error and no attributes are set.
+User attribute list
+1000 Entries
+SDK logs an error and no attributes are set.
+User attribute list entry length
+512 characters
+SDK logs an error and no attributes are set.
+SDK event data
+The following limit applies only to data being ingested with an SDK.
+Resource
+Limits
+Details
+Total batch size
+128KB
+If this limit is exceeded, the SDK automatically attempts to break up the batch into multiple smaller batches.
+Events per workspace and user
+The following limits apply to events per workspace or user.
+Resource
+Limits
+Details
+Unique event names and Screen Names per workspace
+1000
+New unique event names over the limit are dropped from incoming data. You can request this limit be raised, but proliferating unique event names usually indicate problems with your data and can impact performance of both the mParticle dashboard and your apps. Therefore, the limit won’t be raised except where absolutely necessary.
+Average events per user within 24 hours
+150
+This limit can be raised by request.
+Average events per user within 30 days
+175
+This limit can be raised by request.
+mParticle reserves the right to restrict average events per user to ensure platform quality of service.
+Events API
+The following limits apply to resources in the
+.
+Resource
+Limits
+Details
+Batches per second
+Variable but defaults to 270 batches per second
+If exceeded, the Events API returns a 429 HTTP response code. Learn more about how the Events API is throttled in
+.
+Total Request Size
+256kb
+Whether using the
+/events
+or
+/bulkevents
+endpoint, the total request size must be under 256kb regardless of how many batches are included in the request.
+Platform API
+The following limits apply to resources in the
+.
+Resource
+Limits
+Details
+Data points per filter update
+500
+Actual limits scale up and down with demand. If you exceed this limit, the mParticle API could take more than 30s to respond, or time out.
+Set up your implementation to respect 504 responses and retry your request with smaller batches. Alternatively, you can use the UI as outlined in
+.
+Profile API
+The following limit applies to resources in the
+.
+Resource
+Limits
+Details
+Requests per second
+Variable but starting at 15 requests per second
+Actual limits scale up and down with demand. If you exceed the limit, the mParticle API returns an HTTP 429 response code. Set up your implementation to respect 429 responses and retry the request in an exponential backoff pattern.
+Data storage
+The following limits are explained in detail in
+.
+Resource
+Limits
+Details
+Event batch long-term archival storage
+24 months
+Contact your mParticle Customer Service representative if you need longer or shorter archival storage.
+Profile storage
+30 days
+User Profiles are deleted after 30 days of inactivity.
+Real-time audience storage
+30MB
+Maximum size of a single users data in real-time audience storage. Typical users are ~200kb.
+Data Subject Request API
+The following limits apply to resources in the
+.
+Resource
+Limits
+Details
+Requests per minute
+1000 requests per minute
+This limit applies across three API actions (GET, POST, and DELETE) and is enforced per Workspace
+Total new requests
+80,000 requests per day
+This limit applies to the POST API action and is enforced per Workspace. It is split into sliding intervals of 8 hours, meaning that a maximum of 26,666 requests are allowed in any 8 hour window.
+Data plans
+The following limits apply to resources used in
+.
+Similar to our event limit for workspaces, data plans support up to 1,000 data points.
+You can upload data plan JSON files smaller than 10 MB.
+Managing plans with more than 400 data points in the UI becomes unwieldy. Manage plans outside of the UI for larger plans. For more information, see the
+.
+You can block data only for unplanned violations: events and attributes with names that diverge from the schema defined in a data plan.
+Data Planning API
+The following limits apply to resources in the
+.
+Resource
+Limits
+Details
+Requests per minute per account
+3000 requests per minute
+This limit applies to all GET, POST, and PATCH API actions.
+Requests per minute per organization
+6000 requests per minute
+This limit applies to all GET, POST, and PATCH API actions.
+Warehouse Sync API
+The following limits apply to resources in the
+.
+Limit
+Value
+Notes
+Max number of Active Pipelines
+5
+Catchup limit for new hourly pipeline
+7 days
+Catchup limit for new daily pipeline
+6 months
+Catchup limit for new weekly pipeline
+3 years
+Catchup limit for new monthly pipeline
+5 years
+Record count limit per hourly interval
+1 million
+Record count limit per daily interval
+24 million
+Record count limit per weekly interval
+40 million
+Record count limit per monthly interval
+40 million
+Record count limit per once request
+40 million
+Record count limit per on-demand request
+24 million
+This request must be used with an
+.
+Workspaces, users, and name length
+The following limits apply to workspaces, users, and the name length limits for audiences and tags.
+Resource
+Limit
+Details
+Workspaces
+50
+Users are prevented from creating additional workspaces. This limit can be raised by arrangement.
+Users
+200
+Admins are prevented from creating additional users. This limit can be raised by arrangement.
+Audience name Length
+100
+Audience name and external name fields are limited to 100 characters.
+Tag name length
+18
+Tag names are limited to 18 characters.
+API throttling
+mParticle APIs have two types of rate limits in place to protect mParticle’s servers from high demand:
+Speed: limits the rate of traffic.
+Acceleration: limits the rate of increase of traffic.
+You can configure your mParticle integration to respond programmatically to prevent data loss according to the 429 response header you receive.
+Throttled resources include a percentage representation of your current total usage in 2xx response headers. These percentage-used headers allow you to modify your request speed or acceleration to prevent exceeding a rate limit.
+429 rate limit exceeded
+An API request that exceeds the rate (speed) limit of a resource receives a 429 response and a header with the format:
+X-mp-rate-limit-exceeded: "LIMIT"
+where
+"LIMIT"
+is the ID of the source of the limit as described in the table below:
+Value
+Description
+"org"
+A limit applied to an entire organization.
+"account"
+A limit applied to an account ID within a parent organization.
+"app"
+A limit applied to an app ID within a parent organization.
+"feed"
+A limit applied to a feed ID within a parent organization.
+"workspace"
+A limit applied to a workspace ID within a parent organization.
+"system"
+A limit applied at an mParticle system level across multiple organizations.
+"acceleration"
+An acceleration limit that can be applied to any of the speed limits listed above.
+An API request that exceeds any applicable acceleration limit receives a 429 response and a header with the format:
+X-mp-rate-limit-exceeded: “acceleration”
+2xx percentage used
+Rate limited endpoints return an
+X-mp-rate-limit-percentage-used
+header with 2xx responses including the percentage of the limit used. If a resource has multiple limits, the response header includes the greatest consumption percentage of all applicable speed and acceleration limits, omitting any user-based limits.
+For example, if a request is not throttled and is subject to both a speed and acceleration limit, and the current consumption is 92% of the speed limit and 50% of the acceleration limit, then the header lists the consumption of the speed limit because it is higher than the current acceleration limit usage:
+X-mp-rate-limit-percentage-used: 92
+Recommended actions
+If you receive a 429 response for exceeding a speed limit, reduce the frequency of your requests. Use exponential back-off with jitter and respect the
+RetryAfter
+value which is a non-negative decimal integer indicating the number of seconds to delay your request.
+If you receive a 429 response for exceeding an acceleration limit, you can still submit requests but you should slow the increase of your request speed. Use exponential back-off with jitter when determining the new frequency of your requests.
+Was this page helpful?
+Yes
+No
+Last Updated:
+February 28, 2025
+Table of Contents
+Incoming event batches
+SDK event data
+Events per workspace and user
+Events API
+Platform API
+Profile API
+Data storage
+Data Subject Request API
+Data plans
+Data Planning API
+Warehouse Sync API
+Workspaces, users, and name length
+API throttling
+429 rate limit exceeded
+2xx percentage used
+Recommended actions
+By clicking “Accept All Cookies”, you agree to the storing of cookies on your device to enhance site navigation, analyze site usage, and assist in our marketing efforts.
+Cookie settings
+Accept all cookies
+Do Not Sell or Share My Personal Data
+When you visit our website, we store cookies on your browser to collect information. The information collected might relate to you, your preferences or your device, and is mostly used to make the site work as you expect it to and to provide a more personalized web experience. However, you can choose not to allow certain types of cookies, which may impact your experience of the site and the services we are able to offer. Click on the different category headings to find out more and change our default settings according to your preference. You cannot opt-out of our First Party Strictly Necessary Cookies as they are deployed in order to ensure the proper functioning of our website (such as prompting the cookie banner and remembering your settings, to log into your account, to redirect you when you log out, etc.). For more information about the First and Third Party Cookies used please follow this link.
+Allow all
+Manage Consent Preferences
+Strictly Necessary Cookies
+Always Active
+These cookies are necessary for the website to function and cannot be switched off in our systems. They are usually only set in response to actions made by you which amount to a request for services, such as setting your privacy preferences, logging in or filling in forms. You can set your browser to block or alert you about these cookies, but some parts of the site will not then work. These cookies do not store any personally identifiable information.
+Share Or Sale of Personal Data
+Share Or Sale of Personal Data
+Under the CPRA, you have the right to opt-out of the sale or sharing of your personal information to third parties. These cookies collect information for analytics and to personalize your experience with targeted ads. You may exercise your right to opt out of the sale or sharing of personal information by using this toggle switch. If you opt out we will not be able to offer you personalized ads and will not hand over your personal information to any third parties. Additionally, you may contact our legal department for further clarification about your rights as a California consumer by using this Exercise My Rights link.If you have enabled privacy controls on your browser (such as a plugin), we have to take that as a valid request to opt-out. Therefore we would not be able to track your activity through the web. This may affect our ability to personalize ads according to your preferences.
+Targeting Cookies
+Switch Label
+label
+These cookies may be set through our site by our advertising partners. They may be used by those companies to build a profile of your interests and show you relevant adverts on other sites. They do not store directly personal information, but are based on uniquely identifying your browser and internet device. If you do not allow these cookies, you will experience less targeted advertising.
+Performance Cookies
+Switch Label
+label
+These cookies allow us to count visits and traffic sources so we can measure and improve the performance of our site. They help us to know which pages are the most and least popular and see how visitors move around the site. All information these cookies collect is aggregated and therefore anonymous. If you do not allow these cookies we will not know when you have visited our site, and will not be able to monitor its performance.
+Back Button
+Cookie List
+Search Icon
+Filter Icon
+Clear
+checkbox label
+label
+Apply
+Cancel
+Consent
+Leg.Interest
+checkbox label
+label
+checkbox label
+label
+checkbox label
+label
+Confirm my choices
