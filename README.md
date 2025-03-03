@@ -31,10 +31,17 @@ Follow these steps to set up and run the project locally:
    ```
    pip install -r requirements.txt
    ```
+5. Create environment variables with the following variables:
+   - HUGGING_FACE_TOKEN
+   - MONGODB_CONNECTION_STRING
+   - DATABASE
+   - COLLECTION
+
 5. Configure MongoDB connection:
 
    - Ensure your MongoDB instance is running.
    - Update the connection string in the script (if not already set).
+   - Create a vector search index for your collection with the name `vector_search`
 
 6. Start the chatbot interface using Streamlit:
    ```
