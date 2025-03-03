@@ -60,7 +60,7 @@ chatBot/ ├── app.py # Streamlit UI logic ├── chatbot_logic.py # Core
 
 - **Langchain**: To manage conversation flows and logic
 - **Streamlit**: To provide a user-friendly web interface for interacting with the chatbot
-- **MongoDB**: To store conversation history and other relevant data
+- **MongoDB**: To store embeddings and other relevant data
 
 ## Available Scripts
 
@@ -71,7 +71,7 @@ chatBot/ ├── app.py # Streamlit UI logic ├── chatbot_logic.py # Core
 - Conversational AI with Langchain
 - Real-time user interaction using Streamlit
 - Data storage and retrieval using MongoDB
-- Easy to extend for more advanced features (e.g., sentiment analysis, user authentication)
+- Easy to extend for more advanced features
 
 ## Future Enhancements
 
